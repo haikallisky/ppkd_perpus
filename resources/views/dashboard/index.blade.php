@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-Hello this is dahsboard view
+Hello
 @if (Auth::user()->level->nama_level == 'admin')
-ini admin
+Admin
 @endif
 
 @endsection
