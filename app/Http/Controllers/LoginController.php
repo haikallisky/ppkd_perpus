@@ -25,7 +25,7 @@ class LoginController extends Controller
             $userLevel = Auth::user()->level->nama_level;
 
             // Redirect berdasarkan level pengguna
-            if ($userLevel == 'admin' || $userLevel == 'operator' || $userLevel == 'kepsek') {
+            if ($userLevel == 'Admin' || $userLevel == 'Operator' || $userLevel == 'Kepsek') {
                 return redirect()->to('admin/dashboard');
             } else {
                 Auth::logout();
@@ -65,6 +65,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect(route("admin.login"))->with("success", "Ditunggu Kedatangan-nya Kembali!!!!!");
+        return redirect(route("admin"))->with("success", "Ditunggu Kedatangan-nya Kembali!!!!!");
     }
 }

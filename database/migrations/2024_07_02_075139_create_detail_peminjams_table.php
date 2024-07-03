@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('detail_peminjams', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_peminjam');
+            // $table->integer('id_peminjam')->nullable();
+
+            $table->foreignId('id_peminjam')->nullable()->constrained('peminjams','id')->cascadeOnUpdate()->nullOnDelete();
             $table->integer('id_buku');
             $table->date('tanggal_pinjam');
             $table->date('tanggal_pengembalian');
