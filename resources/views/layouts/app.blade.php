@@ -69,11 +69,11 @@
                                 <a class="nav-link" href="layout-sidenav-light.html">Setting</a>
                             </nav>
                         </div>
-                        <a class="nav-link" href="{{route('admin.buku.index')}}">
+                        <a class="nav-link" href="{{ route('admin.buku.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Buku
                         </a>
-                        <a class="nav-link" href="{{route('admin.transaksi.index')}}">
+                        <a class="nav-link" href="{{ route('admin.peminjam.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Transaksi
                         </a>
@@ -153,12 +153,6 @@
         </div>
     </div>
     @include('inc.js')
-
-    <script>
-        $('.btn-add').click(function() {
-            alert('duarrrrrr');
-        });
-    </script>
 </body>
 
 </html>

@@ -18,7 +18,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource('level', App\Http\Controllers\LevelController::class);
         Route::resource('anggota', App\Http\Controllers\AnggotaController::class);
         Route::resource('buku', App\Http\Controllers\BukuController::class);
-        Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
+        Route::resource('peminjam', App\Http\Controllers\TransaksiController::class);
 
         Route::get('peminjaman', [\App\Http\Controllers\TransaksiController::class, 'peminjaman']);
         Route::get('tambah_peminjaman', [\App\Http\Controllers\TransaksiController::class, 'tambah_peminjaman']);

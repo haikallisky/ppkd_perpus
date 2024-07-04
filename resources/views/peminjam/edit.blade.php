@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header">Keanggotaan</div>
         <div class="card-body">
-            <form action="{{ route('admin.anggota.update', $edit->id) }}" method="post">
+            <form action="{{ route('admin.peminjam.update', $edit->id) }}" method="post">
                 @csrf
                 @method("put")
                 <div class="form-group mb-3">

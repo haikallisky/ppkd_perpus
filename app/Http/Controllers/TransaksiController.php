@@ -17,8 +17,8 @@ class TransaksiController extends Controller
     public function index()
     {
         $datas = Peminjam::get();
-        $detail_peminjam = detail_Peminjam::get();
-        return view('transaksi.index', compact('datas', 'detail_peminjam'));
+        // $detail_peminjam = detail_Peminjam::get();
+        return view('peminjam.index', compact('datas'));
     }
 
     /**
@@ -28,8 +28,9 @@ class TransaksiController extends Controller
     {
         $anggota = Anggota::get();
         $buku = Buku::get();
+        $max = peminjam::get()->max('id');
         $title = "Tambah Peminjam";
-        return view('transaksi.create', compact('title', 'anggota', 'buku'));
+        return view('peminjam.create', compact('title', 'anggota', 'buku', 'max'));
     }
 
     /**
@@ -37,15 +38,21 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        Peminjam::create([
+        $peminjam = Peminjam::create([
             'id_anggota' => $request->id_anggota,
             'no_transaksi' => $request->no_transaksi,
-            'nama_anggota' => $request->nama_anggota,
-            'nama_buku' => $request->nama_buku,
+
+        ]);
+
+
+        detail_Peminjam::created([
+            'id_peminjam' => $request->id_peminjam,
+            'id_buku' => $request->id_buku,
             'tanggal_pinjam' => $request->tanggal_pinjam,
             'tanggal_pengembalian' => $request->tanggal_pengembalian,
         ]);
-        return redirect()->to('admin/transaksi')->with('message', 'Data Berhasil Ditambah');
+
+        return redirect()->to('admin/peminjam')->with('message', 'Data Berhasil Ditambah');
     }
 
     /**
@@ -62,7 +69,7 @@ class TransaksiController extends Controller
     public function edit(string $id)
     {
         $edit = detail_Peminjam::where('id_peminjam', $id);
-        return view('transaksi.edit', compact('edit'));
+        return view('peminjam.edit', compact('edit'));
     }
 
     /**
@@ -71,12 +78,14 @@ class TransaksiController extends Controller
     public function update(Request $request, string $id)
     {
         $edit = detail_Peminjam::find($id);
+
         Peminjam::where('id', $id)->update([
             'nama_anggota' => $request->nama_anggota,
             'email' => $request->email,
             'no_tlp' => $request->no_tlp,
         ]);
-        return redirect()->to('admin/transaksi')->with('message', 'Data Berhasil Diubah');
+
+        return redirect()->to('admin/peminjam')->with('message', 'Data Berhasil Diubah');
     }
 
     /**
@@ -85,46 +94,6 @@ class TransaksiController extends Controller
     public function destroy(string $id)
     {
         Peminjam::where('id', $id)->delete();
-        return redirect()->to('admin/transaksi')->with('message', 'Data Berhasil Dihapus');
+        return redirect()->to('admin/peminjam')->with('message', 'Data Berhasil Dihapus');
     }
-
-    //
-
-    public function peminjam()
-    {
-
-    }
-
-    public function tambah_peminjaman()
-    {
-        $kode_transaksi = Peminjam::orderBy('id', 'desc')->first();
-        $huruf = "TR";
-        $urutan = $kode_transaksi->id;
-        $urutan++;
-
-        $kode_transaksi = $huruf . date("dmY") . sprintf("%03s", $urutan);
-
-        return $kode_transaksi;
-    }
-
-    public function show_peminjaman($id)
-    {
-
-    }
-
-    public function delete_peminjaman($id)
-    {
-
-    }
-
-    public function detail_peminjam()
-    {
-
-    }
-
-
-
-
-
-
-}
+};
