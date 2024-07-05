@@ -20,9 +20,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource('buku', App\Http\Controllers\BukuController::class);
         Route::resource('peminjam', App\Http\Controllers\TransaksiController::class);
 
-        Route::get('peminjaman', [\App\Http\Controllers\TransaksiController::class, 'peminjaman']);
-        Route::get('tambah_peminjaman', [\App\Http\Controllers\TransaksiController::class, 'tambah_peminjaman']);
-        Route::get('show_peminjaman/{id}', [\App\Http\Controllers\TransaksiController::class, 'show_peminjaman']);
-        Route::get('delete_peminjaman/{id}', [\App\Http\Controllers\TransaksiController::class, 'delete_peminjaman']);
+
     });
 });

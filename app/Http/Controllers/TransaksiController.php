@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use App\Models\Buku;
-use App\Models\detail_Peminjam;
+use App\Models\detailPeminjam;
 use App\Models\Peminjam;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TransaksiController extends Controller
 {
@@ -16,7 +17,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $datas = Peminjam::get();
+        $datas = Peminjam::with('anggota')->get();
         // $detail_peminjam = detail_Peminjam::get();
         return view('peminjam.index', compact('datas'));
     }
@@ -31,6 +32,7 @@ class TransaksiController extends Controller
         $max = peminjam::get()->max('id');
         $title = "Tambah Peminjam";
         return view('peminjam.create', compact('title', 'anggota', 'buku', 'max'));
+        Alert::success('Success Title', 'Success Message');
     }
 
     /**
@@ -44,15 +46,17 @@ class TransaksiController extends Controller
 
         ]);
 
-
-        detail_Peminjam::created([
-            'id_peminjam' => $request->id_peminjam,
-            'id_buku' => $request->id_buku,
-            'tanggal_pinjam' => $request->tanggal_pinjam,
-            'tanggal_pengembalian' => $request->tanggal_pengembalian,
+        foreach($request->id_buku as $index => $id_buku){
+        detailPeminjam::create([
+            'id_peminjam' => $peminjam->id,
+            'id_buku' => $id_buku,
+            'tanggal_pinjam' => $request->tanggal_pinjam[$index],
+            'tanggal_pengembalian' => $request->tanggal_pengembalian[$index],
+            'keterangan' => $request->keterangan[$index],
         ]);
-
-        return redirect()->to('admin/peminjam')->with('message', 'Data Berhasil Ditambah');
+    }
+    Alert::success('Message', 'Data Peminjam Berhasil ditambah');
+        return redirect()->to('admin/peminjam');
     }
 
     /**
@@ -68,7 +72,7 @@ class TransaksiController extends Controller
      */
     public function edit(string $id)
     {
-        $edit = detail_Peminjam::where('id_peminjam', $id);
+        $edit = detailPeminjam::where('id_peminjam', $id);
         return view('peminjam.edit', compact('edit'));
     }
 
@@ -77,7 +81,7 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $edit = detail_Peminjam::find($id);
+        $edit = detailPeminjam::find($id);
 
         Peminjam::where('id', $id)->update([
             'nama_anggota' => $request->nama_anggota,

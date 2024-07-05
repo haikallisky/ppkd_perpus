@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anggota;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
@@ -68,6 +69,7 @@ class AnggotaController extends Controller
             'email' => $request->email,
             'no_tlp' => $request->no_tlp,
         ]);
+        Alert::success('Success Title', 'Success Message');
         return redirect()->to('admin/anggota')->with('message', 'Data Berhasil Diubah');
     }
 
@@ -77,6 +79,7 @@ class AnggotaController extends Controller
     public function destroy(string $id)
     {
         Anggota::where('id', $id)->delete();
+        Alert::success('Success Title', 'Success Message');
         return redirect()->to('admin/anggota')->with('message', 'Data Berhasil Dihapus');
     }
 }

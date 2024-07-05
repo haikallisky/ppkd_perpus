@@ -14,13 +14,14 @@ $buku = Buku::get();
 <script src="{{ asset('assets/admin/js/datatables-simple-demo.js') }}"></script>
 <script src="{{ asset('assets/admin/js/jquery-3.7.1.min.js') }}"></script>
 
-{{-- @include('sweetalert::alert') --}}
+@include('sweetalert::alert')
+
 <script>
     $('.btn-add').click(function() {
         let tbody = $('tbody');
         let newTr = "<tr>";
         newTr += "<td>";
-        newTr += "<select name='id_buku'>";
+        newTr += "<select name='id_buku[]'>";
         newTr += "<option value=''>Pilih Buku</option>";
         @foreach ($buku as $buku)
             newTr += "<option value={{ $buku->id }}>{{ $buku->nama_buku }}</option>";
@@ -34,8 +35,7 @@ $buku = Buku::get();
         newTr += "</tr>";
         tbody.append(newTr);
     });
-</script>
-<script>
+
     $('.show_confirm').click(function(event) {
         let form = $(this).closest("form");
         let name = $(this).data("name");

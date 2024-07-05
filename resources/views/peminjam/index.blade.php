@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @section('cardtitle', 'Data Peminjam')
-
+@include('sweetalert::alert')
 <div class="table-responsive">
     <div align="right" class="mb-3">
         <a href="{{route ('admin.peminjam.create')}}" class="btn btn-primary btn-sm"><i
@@ -25,14 +25,14 @@
                     <td>{{ $d->no_transaksi }}</td>
                     <td>
                         <a href="#" class="btn btn-sm bg-success">
-                            <i class="fas fa-edit"> Edit</i>
+                            <i class="fas fa-edit"></i>Edit
                         </a>
-
-                        <form method="POST" action="#" class="d-inline">
+                        |
+                        <form action="{{ route('admin.peminjam.destroy', $d->id) }}" method="post" class="d-inline">
                             @csrf
-                            <input type="hidden" value="DELETE" name="_method">
-                            <button class="btn btn-danger btn-sm show_confirm" type="submit">
-                                <i class="fas fa-trash"> Delete</i>
+                            <input type="hidden" name="_method" value="Delete">
+                            <button class="btn btn-sm btn-danger show_confirm" type="submit">
+                                <i class="fas fa-trash"></i>Delete
                             </button>
                         </form>
                     </td>

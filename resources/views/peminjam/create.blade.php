@@ -42,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    {{-- <tr>
                         <td>
                             <select name="id_buku" id="">
                                 <option value="">Pilih Buku</option>
@@ -63,7 +63,7 @@
                         <td>
                             Hapus
                         </td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
         </div>
